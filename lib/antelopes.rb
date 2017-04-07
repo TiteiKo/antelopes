@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 require 'serverengine'
+require 'connection_pool'
+require 'redis'
 
 # Nice and smart background jobs.
 #

@@ -24,7 +24,7 @@ module Antelopes
     #
     # @since x.x.x
     def stop
-      logger.info 'Looper shuting down'
+      logger.info 'Looper shutting down'
       @stop = true
     end
   end

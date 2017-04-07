@@ -9,12 +9,17 @@ module Antelopes
   # @since x.x.x
   # @private
   module Master
+    # @!attribute [r] redis
+    #   @return [ConnectionPool] the a redis connection pool
+    attr_reader :redis
+
     # Method called by ServerEngine before starting the workers.
+    # It initialize the redis connection pool used by the Loopers.
     #
     # @since x.x.x
-    # @todo Initialize the redis connection pool here
     def before_run
-      logger.info 'Master started'
+      logger.info 'Master starting'
+      @redis = ConnectionPool.new(size: 5, timeout: 3) { Redis.new }
     end
 
     # Method called by ServerEngine before shutting down
@@ -22,6 +27,7 @@ module Antelopes
     # @since x.x.x
     def after_run
       logger.info 'Master shutting down'
+      @redis.shutdown(&:quit)
     end
   end
 end
