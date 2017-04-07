@@ -14,12 +14,9 @@ module Antelopes
     #
     # @since x.x.x
     def run
-      @runner = Worker.new(logger)
-
-      until @stop
-        @runner.run
-        sleep 1
-      end
+      logger.info 'Looper started'
+      @runner = Worker.new(logger: logger)
+      @runner.run until @stop
     end
 
     # Method called by [serverengine](https://github.com/treasure-data/serverengine)
@@ -27,7 +24,7 @@ module Antelopes
     #
     # @since x.x.x
     def stop
-      logger.info 'Shutting down'
+      logger.info 'Looper shuting down'
       @stop = true
     end
   end

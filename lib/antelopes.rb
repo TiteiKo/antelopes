@@ -7,7 +7,7 @@ require 'serverengine'
 # @since x.x.x
 module Antelopes
   def self.start
-    ::ServerEngine.create(nil, Looper, configuration).run
+    ::ServerEngine.create(Master, Looper, configuration).run
   end
 
   # Loopers configuration to pass to ServerEngine
@@ -26,5 +26,7 @@ module Antelopes
   end
 end
 
+require 'antelopes/master'
 require 'antelopes/looper'
 require 'antelopes/worker'
+require 'antelopes/job'
