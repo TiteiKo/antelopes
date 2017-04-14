@@ -3,6 +3,8 @@
 require 'serverengine'
 require 'connection_pool'
 require 'redis'
+require 'securerandom'
+require 'json'
 
 # Nice and smart background jobs.
 #
@@ -32,7 +34,10 @@ module Antelopes
 end
 
 require 'antelopes/redis'
+
 require 'antelopes/master'
 require 'antelopes/looper'
 require 'antelopes/worker'
 require 'antelopes/job'
+
+require 'antelopes/pusher'
