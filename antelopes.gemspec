@@ -11,8 +11,11 @@ Gem::Specification.new do |s|
 
   s.required_ruby_version = '>= 2.3'
 
+  s.add_runtime_dependency 'connection_pool', '~> 2'
+  s.add_runtime_dependency 'redis', '~> 3'
   s.add_runtime_dependency 'serverengine', '~> 2'
 
-  s.add_development_dependency 'rake', '> 0'
   s.add_development_dependency 'minitest', '> 0'
+  s.add_development_dependency 'minitest-reporters', '> 0'
+  s.add_development_dependency 'rake', '> 0'
 end

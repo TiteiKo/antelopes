@@ -31,6 +31,7 @@ module Antelopes
   end
 end
 
+require 'antelopes/redis'
 require 'antelopes/master'
 require 'antelopes/looper'
 require 'antelopes/worker'

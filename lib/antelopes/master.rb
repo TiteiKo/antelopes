@@ -19,7 +19,7 @@ module Antelopes
     # @since x.x.x
     def before_run
       logger.info 'Master starting'
-      @redis = ConnectionPool.new(size: 5, timeout: 3) { Redis.new }
+      @redis = ConnectionPool.new(size: 5, timeout: 3) { Antelopes::Redis.new.connection }
     end
 
     # Method called by ServerEngine before shutting down
