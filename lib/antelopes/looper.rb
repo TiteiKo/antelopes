@@ -9,7 +9,7 @@ module Antelopes
   # @since x.x.x
   # @private
   module Looper
-    # Method called by [serverengine](https://github.com/treasure-data/serverengine)
+    # Method called by {https://github.com/treasure-data/serverengine ServerEngine}
     # that loops until stopped.
     #
     # @since x.x.x
@@ -19,7 +19,7 @@ module Antelopes
       @runner.run until @stop
     end
 
-    # Method called by [serverengine](https://github.com/treasure-data/serverengine)
+    # Method called by {https://github.com/treasure-data/serverengine ServerEngine}
     # to stop the worker when the service receives a signal to stop or restart.
     #
     # @since x.x.x

@@ -8,6 +8,9 @@ require 'redis'
 #
 # @since x.x.x
 module Antelopes
+  # Method to call to start the workers
+  #
+  # @since x.x.x
   def self.start
     ::ServerEngine.create(Master, Looper, configuration).run
   end
