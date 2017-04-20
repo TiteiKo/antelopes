@@ -32,7 +32,9 @@ module Antelopes
     class TestPullerWithJob
       def pull
         Job.new(
-          'job' => Hash['class' => 'Antelopes::WorkerTest::TestJob', 'method' => 'call', 'args' => Hash['foo' => 'bar']],
+          'job' => Hash[
+            'class' => 'Antelopes::WorkerTest::TestJob', 'method' => 'call', 'args' => Hash['foo' => 'bar']
+          ],
           'jid' => 'qwerty'
         )
       end
@@ -41,7 +43,9 @@ module Antelopes
     class TestPullerWithClassJob
       def pull
         Job.new(
-          'job' => Hash['class' => 'Antelopes::WorkerTest::TestJob', 'class_method' => 'call', 'args' => Hash['foo' => 'bar']],
+          'job' => Hash[
+            'class' => 'Antelopes::WorkerTest::TestJob', 'class_method' => 'call', 'args' => Hash['foo' => 'bar']
+          ],
           'jid' => 'qwerty'
         )
       end
