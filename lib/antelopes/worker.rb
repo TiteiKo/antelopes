@@ -20,10 +20,13 @@ module Antelopes
     # @since x.x.x
     def run
       job = puller.pull
-      if job.nil?
-        sleep 1
+      return if job.nil?
+
+      klass = Object.const_get(job.job_class)
+      if job.job_method.nil?
+        klass.public_send(job.job_class_method, **job.job_args)
       else
-        Object.const_get(job[:job]).new.call
+        klass.new.public_send(job.job_method, **job.job_args)
       end
     end
 

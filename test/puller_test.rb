@@ -19,8 +19,8 @@ module Antelopes
     def test_job_pulling
       result = @puller.next_todo
 
-      assert_equal @jid, result['jid']
-      assert_includes @redis.keys('antelopes:*'), "antelopes:job:#{result['jid']}"
+      assert_equal @jid, result.jid
+      assert_includes @redis.keys('antelopes:*'), "antelopes:job:#{result.jid}"
       assert_equal 0, @redis.llen('antelopes:todo')
       assert_equal 1, @redis.llen('antelopes:doing')
     end

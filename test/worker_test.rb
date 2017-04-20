@@ -4,8 +4,9 @@ require 'test_helper'
 
 module Antelopes
   class WorkerTest < Minitest::Test
-    def test_running_pulled_job
-      assert_output(/Job is running!/) do
+    def test_running_pulled_job_with_instance_method
+      @puller = TestPullerWithJob.new
+      assert_output(/Job is running #call with foo: bar/) do
         worker.run
       end
     end
@@ -15,19 +16,34 @@ module Antelopes
       worker.run
     end
 
-    private
-
-    def puller
-      @puller ||= TestPullerWithJob.new
+    def test_running_with_class_method
+      @puller = TestPullerWithClassJob.new
+      assert_output(/Job is running .call with foo: bar/) do
+        worker.run
+      end
     end
 
+    private
+
     def worker
-      @worker ||= Antelopes::Worker.new(puller: puller)
+      @worker ||= Antelopes::Worker.new(puller: @puller)
     end
 
     class TestPullerWithJob
       def pull
-        Hash[job: 'Antelopes::WorkerTest::TestJob']
+        Job.new(
+          'job' => Hash['class' => 'Antelopes::WorkerTest::TestJob', 'method' => 'call', 'args' => Hash['foo' => 'bar']],
+          'jid' => 'qwerty'
+        )
+      end
+    end
+
+    class TestPullerWithClassJob
+      def pull
+        Job.new(
+          'job' => Hash['class' => 'Antelopes::WorkerTest::TestJob', 'class_method' => 'call', 'args' => Hash['foo' => 'bar']],
+          'jid' => 'qwerty'
+        )
       end
     end
 
@@ -38,8 +54,12 @@ module Antelopes
     end
 
     class TestJob
-      def call(*)
-        Logger.new($stdout).info('Job is running!')
+      def call(foo:)
+        Logger.new($stdout).info("Job is running #call with foo: #{foo}")
+      end
+
+      def self.call(foo:)
+        Logger.new($stdout).info("Job is running .call with foo: #{foo}")
       end
     end
   end

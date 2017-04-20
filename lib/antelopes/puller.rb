@@ -24,7 +24,7 @@ module Antelopes
       jid = redis.brpoplpush('antelopes:todo', 'antelopes:doing', timeout: 1)
 
       return if jid.nil?
-      JSON.parse(redis.get("antelopes:job:#{jid}"))
+      Job.new(JSON.parse(redis.get("antelopes:job:#{jid}")))
     end
 
     private
