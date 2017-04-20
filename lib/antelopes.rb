@@ -41,3 +41,4 @@ require 'antelopes/worker'
 require 'antelopes/job'
 
 require 'antelopes/pusher'
+require 'antelopes/puller'

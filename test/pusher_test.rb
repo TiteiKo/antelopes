@@ -4,7 +4,7 @@ module Antelopes
   class PusherTest < Minitest::Test
     def setup
       @redis = Antelopes::Redis.new.connection
-      @pusher = Antelopes::Pusher.new(redis: @redis)
+      @pusher = Antelopes::Pusher.new(redis: @redis, logger: TestMaster.new.logger)
       clean_redis
     end
 
@@ -33,9 +33,9 @@ module Antelopes
 
       def logger
         @logger ||= begin
-          logger = Logger.new($stdout)
-          logger.level = Logger::ERROR
-          logger
+          l = Logger.new($stdout)
+          l.level = Logger::ERROR
+          l
         end
       end
     end

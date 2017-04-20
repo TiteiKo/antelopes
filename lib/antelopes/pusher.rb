@@ -30,7 +30,9 @@ module Antelopes
       @result = OpenStruct.new(jid: SecureRandom.uuid)
 
       redis.set("antelopes:job:#{@result.jid}", JSON.generate(job_params.merge(jid: @result.jid)))
-      redis.rpush('antelopes:todo', @result.jid)
+      redis.lpush('antelopes:todo', @result.jid)
+
+      logger.info "Pushed #{@result.jid} - #{job_params}"
 
       @result
     end
