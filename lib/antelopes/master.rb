@@ -10,7 +10,7 @@ module Antelopes
   # @private
   module Master
     # @!attribute [r] redis
-    #   @return [ConnectionPool] the a redis connection pool
+    #   @return [ConnectionPool] the redis connection pool
     attr_reader :redis
 
     # Method called by ServerEngine before starting the workers.
@@ -19,7 +19,7 @@ module Antelopes
     # @since 0.0.1
     def before_run
       logger.info 'Master starting'
-      @redis = ConnectionPool.new(size: 5, timeout: 3) { Antelopes::Redis.new.connection }
+      @redis = Antelopes::Redis.new(size: 5).connection
     end
 
     # Method called by ServerEngine before shutting down

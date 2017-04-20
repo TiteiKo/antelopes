@@ -20,16 +20,21 @@ module Antelopes
       result = @puller.next_todo
 
       assert_equal @jid, result.jid
-      assert_includes @redis.keys('antelopes:*'), "antelopes:job:#{result.jid}"
-      assert_equal 0, @redis.llen('antelopes:todo')
-      assert_equal 1, @redis.llen('antelopes:doing')
+
+      @redis.with do |c|
+        assert_includes c.keys('antelopes:*'), "antelopes:job:#{result.jid}"
+        assert_equal 0, c.llen('antelopes:todo')
+        assert_equal 1, c.llen('antelopes:doing')
+      end
     end
 
     private
 
     def clean_redis
-      @redis.keys('antelopes:*').each do |key|
-        @redis.del(key)
+      @redis.with do |c|
+        c.keys('antelopes:*').each do |key|
+          c.del(key)
+        end
       end
     end
 

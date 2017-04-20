@@ -35,8 +35,8 @@ module Antelopes
   # @param args [Hash] parameters for the method
   #
   # @since 0.0.1
-  def self.push(job_class, method: nil, class_method: nil, args: Hash[])
-    Pusher.new.call(class: job_class, method: method, class_method: class_method, args: args)
+  def self.push(job_class, method: nil, class_method: nil, args: nil)
+    Pusher.new.call(job: Hash[class: job_class, method: method, class_method: class_method, args: args])
   end
 
   # Loopers configuration to pass to ServerEngine

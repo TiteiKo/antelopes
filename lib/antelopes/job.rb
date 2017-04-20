@@ -36,6 +36,8 @@ module Antelopes
     end
 
     def setup_job_args(args)
+      return if args.nil?
+
       @job_args = Hash[args.map { |k, v| [k.to_sym, v] }]
     end
   end

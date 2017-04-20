@@ -19,12 +19,12 @@ module Antelopes
     # Method used by the workers to get a job to work on.
     # When the job is started, it goes in the 'doing' list.
     #
-    # @return [Hash] the job
+    # @return [Antelopes::Job] the job
     def next_todo
-      jid = redis.brpoplpush('antelopes:todo', 'antelopes:doing', timeout: 1)
+      jid = redis.with { |c| c.brpoplpush('antelopes:todo', 'antelopes:doing', timeout: 1) }
 
       return if jid.nil?
-      Job.new(JSON.parse(redis.get("antelopes:job:#{jid}")))
+      Job.new(JSON.parse(redis.with { |c| c.get("antelopes:job:#{jid}") }))
     end
 
     private

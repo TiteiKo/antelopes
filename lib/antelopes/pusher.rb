@@ -29,8 +29,10 @@ module Antelopes
     def call(job_params)
       @result = OpenStruct.new(jid: SecureRandom.uuid)
 
-      redis.set("antelopes:job:#{@result.jid}", JSON.generate(job_params.merge(jid: @result.jid)))
-      redis.lpush('antelopes:todo', @result.jid)
+      redis.with do |c|
+        c.set("antelopes:job:#{@result.jid}", JSON.generate(job_params.merge(jid: @result.jid)))
+        c.lpush('antelopes:todo', @result.jid)
+      end
 
       logger.info "Pushed #{@result.jid} - #{job_params}"
 

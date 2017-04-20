@@ -16,15 +16,19 @@ module Antelopes
       result = @pusher.call(foo: 'bar')
 
       refute_nil result.jid
-      assert_includes @redis.keys('antelopes:*'), "antelopes:job:#{result.jid}"
-      assert_equal 1, @redis.llen('antelopes:todo')
+      @redis.with do |c|
+        assert_includes c.keys('antelopes:*'), "antelopes:job:#{result.jid}"
+        assert_equal 1, c.llen('antelopes:todo')
+      end
     end
 
     private
 
     def clean_redis
-      @redis.keys('antelopes:*').each do |key|
-        @redis.del(key)
+      @redis.with do |c|
+        c.keys('antelopes:*').each do |key|
+          c.del(key)
+        end
       end
     end
 

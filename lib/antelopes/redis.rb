@@ -5,12 +5,12 @@ module Antelopes
   #
   # @since 0.0.1
   class Redis
-    # Retrieve a Redis connection
-    #
-    # @todo Make it configurable
-    # @return [::Redis] a {https://github.com/redis/redis-rb Redis} connection
-    def connection
-      ::Redis.new
+    # @!attribute [r] connection
+    #   @return [ConnectionPool] a redis connection pool
+    attr_reader :connection
+
+    def initialize(size: 1, timeout: 3)
+      @connection = ConnectionPool.new(size: size, timeout: timeout) { ::Redis.new }
     end
   end
 end

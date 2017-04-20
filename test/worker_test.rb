@@ -23,6 +23,13 @@ module Antelopes
       end
     end
 
+    def test_running_without_params
+      @puller = TestPullerNoParamJob.new
+      assert_output(/Job is running #without_params/) do
+        worker.run
+      end
+    end
+
     private
 
     def worker
@@ -30,7 +37,7 @@ module Antelopes
     end
 
     class TestPullerWithJob
-      def pull
+      def next_todo
         Job.new(
           'job' => Hash[
             'class' => 'Antelopes::WorkerTest::TestJob', 'method' => 'call', 'args' => Hash['foo' => 'bar']
@@ -41,7 +48,7 @@ module Antelopes
     end
 
     class TestPullerWithClassJob
-      def pull
+      def next_todo
         Job.new(
           'job' => Hash[
             'class' => 'Antelopes::WorkerTest::TestJob', 'class_method' => 'call', 'args' => Hash['foo' => 'bar']
@@ -51,8 +58,19 @@ module Antelopes
       end
     end
 
+    class TestPullerNoParamJob
+      def next_todo
+        Job.new(
+          'job' => Hash[
+            'class' => 'Antelopes::WorkerTest::TestJob', 'method' => 'without_params', 'args' => nil
+          ],
+          'jid' => 'qwerty'
+        )
+      end
+    end
+
     class TestPullerWithoutJob
-      def pull
+      def next_todo
         nil
       end
     end
@@ -64,6 +82,10 @@ module Antelopes
 
       def self.call(foo:)
         Logger.new($stdout).info("Job is running .call with foo: #{foo}")
+      end
+
+      def without_params
+        Logger.new($stdout).info('Job is running #without_params')
       end
     end
   end

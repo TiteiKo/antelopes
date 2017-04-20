@@ -15,8 +15,13 @@ module Antelopes
     # @since 0.0.1
     def run
       logger.info 'Looper started'
-      @runner = Worker.new(logger: logger)
+
+      @puller = Antelopes::Puller.new(logger: logger, redis: server.redis)
+      @runner = Antelopes::Worker.new(logger: logger, redis: server.redis, puller: @puller)
+
       @runner.run until @stop
+    rescue StandardError => e
+      logger.error(e)
     end
 
     # Method called by {https://github.com/treasure-data/serverengine ServerEngine}

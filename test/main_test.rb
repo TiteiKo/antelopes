@@ -20,8 +20,10 @@ module Antelopes
     private
 
     def clean_redis
-      @redis.keys('antelopes:*').each do |key|
-        @redis.del(key)
+      @redis.with do |c|
+        c.keys('antelopes:*').each do |key|
+          c.del(key)
+        end
       end
     end
 
