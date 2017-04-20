@@ -17,6 +17,28 @@ module Antelopes
     ::ServerEngine.create(Master, Looper, configuration).run
   end
 
+  # Method to add a job to queue.
+  #
+  # @example Instance method call
+  #   Antelopes.push('MyClass', method: :call, args: Hash[foo: 'bar'])
+  #   # The worker will run the following code:
+  #   MyClass.new.call(foo: 'bar')
+  #
+  # @example Class method call
+  #   Antelopes.push('MyClass', class_method: :call, args: Hash[foo: 'bar'])
+  #   # The worker will run the following code:
+  #   MyClass.call(foo: 'bar')
+  #
+  # @param job_class [String] class of the job to perform
+  # @param method [Symbol] public method of the instance to call
+  # @param class_method [Symbol] public method of the class to call
+  # @param args [Hash] parameters for the method
+  #
+  # @since x.x.x
+  def self.push(job_class, method: nil, class_method: nil, args: Hash[])
+    Pusher.new.call(class: job_class, method: method, class_method: class_method, args: args)
+  end
+
   # Loopers configuration to pass to ServerEngine
   #
   # @since x.x.x
