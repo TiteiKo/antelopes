@@ -3,7 +3,7 @@
 module Antelopes
   # Class used to generate a Redis connection
   #
-  # @since x.x.x
+  # @since 0.0.1
   class Redis
     # Retrieve a Redis connection
     #

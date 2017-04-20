@@ -4,7 +4,7 @@ module Antelopes
   # Class used to pull jobs
   # This should not be used directly by Antelopes users.
   #
-  # @since x.x.x
+  # @since 0.0.1
   # @private
   class Puller
     # Initialization

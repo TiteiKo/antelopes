@@ -6,7 +6,7 @@ module Antelopes
   # share it with the loopers.
   # This class should not be used directly by Antelopes users.
   #
-  # @since x.x.x
+  # @since 0.0.1
   # @private
   module Master
     # @!attribute [r] redis
@@ -16,7 +16,7 @@ module Antelopes
     # Method called by ServerEngine before starting the workers.
     # It initialize the redis connection pool used by the Loopers.
     #
-    # @since x.x.x
+    # @since 0.0.1
     def before_run
       logger.info 'Master starting'
       @redis = ConnectionPool.new(size: 5, timeout: 3) { Antelopes::Redis.new.connection }
@@ -24,7 +24,7 @@ module Antelopes
 
     # Method called by ServerEngine before shutting down
     #
-    # @since x.x.x
+    # @since 0.0.1
     def after_run
       logger.info 'Master shutting down'
       @redis.shutdown(&:quit)

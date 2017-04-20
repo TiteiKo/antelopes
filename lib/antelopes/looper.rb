@@ -6,13 +6,13 @@ module Antelopes
   # as a manager.
   # This class should not be used directly by Antelopes users.
   #
-  # @since x.x.x
+  # @since 0.0.1
   # @private
   module Looper
     # Method called by {https://github.com/treasure-data/serverengine ServerEngine}
     # that loops until stopped.
     #
-    # @since x.x.x
+    # @since 0.0.1
     def run
       logger.info 'Looper started'
       @runner = Worker.new(logger: logger)
@@ -22,7 +22,7 @@ module Antelopes
     # Method called by {https://github.com/treasure-data/serverengine ServerEngine}
     # to stop the worker when the service receives a signal to stop or restart.
     #
-    # @since x.x.x
+    # @since 0.0.1
     def stop
       logger.info 'Looper shutting down'
       @stop = true

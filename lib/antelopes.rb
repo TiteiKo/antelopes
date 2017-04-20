@@ -8,11 +8,11 @@ require 'json'
 
 # Nice and smart background jobs.
 #
-# @since x.x.x
+# @since 0.0.1
 module Antelopes
   # Method to call to start the workers
   #
-  # @since x.x.x
+  # @since 0.0.1
   def self.start
     ::ServerEngine.create(Master, Looper, configuration).run
   end
@@ -34,14 +34,14 @@ module Antelopes
   # @param class_method [Symbol] public method of the class to call
   # @param args [Hash] parameters for the method
   #
-  # @since x.x.x
+  # @since 0.0.1
   def self.push(job_class, method: nil, class_method: nil, args: Hash[])
     Pusher.new.call(class: job_class, method: method, class_method: class_method, args: args)
   end
 
   # Loopers configuration to pass to ServerEngine
   #
-  # @since x.x.x
+  # @since 0.0.1
   # @todo Make it configurable via a configuration file or environment variables
   def self.configuration
     Hash[

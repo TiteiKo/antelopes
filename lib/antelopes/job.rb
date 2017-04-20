@@ -3,7 +3,7 @@
 module Antelopes
   # Job object representation
   #
-  # @since x.x.x
+  # @since 0.0.1
   class Job
     # @!attribute [r] jid
     #   @return [String] the uuid of the job

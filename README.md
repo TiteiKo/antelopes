@@ -3,7 +3,7 @@
 This project endgoal is to be a clean and framework-agnostic background jobs worker system,
 primilary focused on batches.
 
-This project is all new and has not yet reached a usable state.
+This project is all new and has not yet reached a stable state.
 
 ## Contributing
 

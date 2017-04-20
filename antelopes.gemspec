@@ -2,8 +2,7 @@
 
 Gem::Specification.new do |s|
   s.name        = 'antelopes'
-  s.version     = '0.0.0'
-  s.date        = '2017-04-06'
+  s.version     = '0.0.1'
   s.summary     = 'Nice and smart background jobs'
   s.authors     = ['Marion Duprey']
   s.email       = 'titeiko@gmail.com'

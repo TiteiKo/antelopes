@@ -3,7 +3,7 @@
 module Antelopes
   # Basic worker that pulls a job, runs it, reports and repeats.
   #
-  # @since x.x.x
+  # @since 0.0.1
   # @private
   class Worker
     # Worker initialization.
@@ -17,7 +17,7 @@ module Antelopes
 
     # Method called by the looper at every loop.
     #
-    # @since x.x.x
+    # @since 0.0.1
     def run
       job = puller.pull
       return if job.nil?
