@@ -6,7 +6,7 @@ Gem::Specification.new do |s|
   s.summary     = 'Nice and smart background jobs'
   s.authors     = ['Marion Duprey']
   s.email       = 'titeiko@gmail.com'
-  s.files       = ['lib/antelopes.rb']
+  s.files       = `git ls-files | grep -Ev '^(bin|test)'`.split("\n")
   s.homepage    = 'https://github.com/titeiko/antelopes'
   s.license     = 'MIT'
 
