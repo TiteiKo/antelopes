@@ -24,9 +24,9 @@ module Antelopes
       job = puller.next_todo
       return if job.nil?
 
-      method = job.job_method.nil? ? job.job_class_method : job.job_method
-
-      execute(target(job), method, job)
+      log_job(job) do
+        execute(target(job), method(job), job)
+      end
     rescue StandardError => e
       logger.error(e)
     end
@@ -34,6 +34,20 @@ module Antelopes
     private
 
     attr_reader :logger, :puller
+
+    # Log the start, end and elapsed time of a job
+    #
+    # @private
+    # @since x.x.x
+    def log_job(job)
+      logger.info("[Worker] Started job #{job.jid} - #{job}")
+      started = Time.now.to_f
+
+      yield
+
+      finished = Time.now.to_f
+      logger.info("[Worker] Finished job #{job.jid} - #{finished.to_f - started.to_f} - #{job}")
+    end
 
     # Method that sends the job method to the job class or instance, with or
     # without args
@@ -58,6 +72,14 @@ module Antelopes
     def target(job)
       klass = Object.const_get(job.job_class)
       job.job_method.nil? ? klass : klass.new
+    end
+
+    # Method that returns the method to be called by the job target
+    #
+    # @param job [Antelopes::Job] the job
+    # @return [Class] if the job is with a class method
+    def method(job)
+      job.job_method.nil? ? job.job_class_method.to_sym : job.job_method.to_sym
     end
   end
 end

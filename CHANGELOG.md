@@ -14,6 +14,7 @@ Smart and agile workers.
 
 * [Marion Duprey] Added logging of worker errors
 * [Marion Duprey] Added support for job methods without args
+* [Marion Duprey] Added logging on job running
 
 ## v0.0.2 - 2017-04-20
 

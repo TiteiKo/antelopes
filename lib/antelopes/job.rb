@@ -21,9 +21,18 @@ module Antelopes
     #
     # @param json_payload [Hash] deserialized JSON hash
     # @return [Job] a Job
+    # @since 0.0.1
     def initialize(json_payload)
       @jid = json_payload['jid']
       setup_job_attrs(json_payload['job'])
+    end
+
+    # Format to string
+    #
+    # @return [String] the job formatted in string
+    # @since x.x.x
+    def to_s
+      inspect
     end
 
     private

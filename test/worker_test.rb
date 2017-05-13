@@ -30,6 +30,20 @@ module Antelopes
       end
     end
 
+    def test_starting_log
+      @puller = TestPullerWithJob.new
+      assert_output(/Started job qwerty/) do
+        worker.run
+      end
+    end
+
+    def test_finishing_log
+      @puller = TestPullerWithJob.new
+      assert_output(/Finished job qwerty/) do
+        worker.run
+      end
+    end
+
     private
 
     def worker
